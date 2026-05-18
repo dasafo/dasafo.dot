@@ -1,0 +1,807 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+lua/
+  config/
+    autocmds.lua
+    keymaps.lua
+    lazy.lua
+    options.lua
+  plugins/
+    colorscheme.lua
+    gitsigns.lua
+    lsp.lua
+    lualine.lua
+    mason.lua
+    notify.lua
+    oil.lua
+    telescope.lua
+    treesitter.lua
+    undotree.lua
+.gitignore
+.neoconf.json
+init.lua
+lazy-lock.json
+lazyvim.json
+LICENSE
+README.md
+stylua.toml
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="lua/plugins/undotree.lua">
+return{
+    "mbbill/undotree"
+
+}
+</file>
+
+<file path="lua/config/autocmds.lua">
+-- Autocmds are automatically loaded on the VeryLazy event
+-- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
+-- Add any additional autocmds here
+
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#a2734b", bg = "None" }) -- Color para la linea separador de ventanas
+</file>
+
+<file path="lua/config/keymaps.lua">
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
+
+-- Explorador de archivos (Oil.nvim)
+vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
+
+-- Guardado rápido
+vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save file" })
+
+-- NOTA: Se han eliminado 'gd' y 'gD' manuales porque LazyVim ya los trae configurados
+-- con mejores integraciones (FzfLua/Telescope).
+
+--------------------------------------------------------------------------------
+-- COMPILACIÓN Y EJECUCIÓN JAVA / JSP / MAVEN
+--------------------------------------------------------------------------------
+
+-- Compilación universal con Maven (Recomendado para tus proyectos Spring)
+vim.keymap.set("n", "<leader>jc", "<cmd>!mvn clean compile<cr>", { desc = "Maven: Clean & Compile" })
+
+-- Ejecutar proyecto con Maven (Carga automática de dependencias)
+vim.keymap.set("n", "<leader>rj", "<cmd>!mvn clean compile exec:java<cr>", { desc = "Maven: Run Project" })
+
+-- Atajos para despliegue en Tomcat vía Maven
+vim.keymap.set("n", "<leader>md", "<cmd>!mvn tomcat7:deploy<cr>", { desc = "Tomcat: Deploy" })
+vim.keymap.set("n", "<leader>mr", "<cmd>!mvn tomcat7:redeploy<cr>", { desc = "Tomcat: Redeploy" })
+vim.keymap.set("n", "<leader>mu", "<cmd>!mvn tomcat7:undeploy<cr>", { desc = "Tomcat: Undeploy" })
+
+-- Abrir el archivo JSP o HTML actual en el navegador de forma dinámica
+-- Esta función intenta detectar el nombre del proyecto y la carpeta para construir la URL de Tomcat automáticamente.
+vim.keymap.set("n", "<leader>r", function()
+  local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+  local file_name = vim.fn.expand("%:t")
+  local parent_dir = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":t")
+  -- URL construida dinámicamente: http://localhost:8080/NombreProyecto/Carpeta/Archivo.jsp
+  local url = string.format("http://localhost:8080/%s/%s/%s", project_name, parent_dir, file_name)
+  
+  vim.notify("Abriendo: " .. url)
+  vim.fn.jobstart({ "xdg-open", url }) -- Usa jobstart para no bloquear el editor
+end, { desc = "Tomcat: Open JSP/HTML in Browser" })
+
+--------------------------------------------------------------------------------
+-- TERMINAL
+--------------------------------------------------------------------------------
+
+-- Permitir salir de terminal-mode con ESC
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true, desc = "Exit terminal mode" })
+</file>
+
+<file path="lua/config/lazy.lua">
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  -- bootstrap lazy.nvim
+  -- stylua: ignore
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+end
+vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+
+require("lazy").setup({
+  spec = {
+    -- add LazyVim and import its plugins
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- import any extras modules here
+    -- { import = "lazyvim.plugins.extras.lang.typescript" },
+    -- { import = "lazyvim.plugins.extras.lang.json" },
+    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    -- import/override with your plugins
+    { import = "plugins" },
+  },
+  defaults = {
+    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
+    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
+    lazy = false,
+    -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
+    -- have outdated releases, which may break your Neovim install.
+    version = false, -- always use the latest git commit
+    -- version = "*", -- try installing the latest stable version for plugins that support semver
+  },
+  install = { colorscheme = { "tokyonight", "habamax" } },
+  checker = { enabled = true }, -- automatically check for plugin updates
+  performance = {
+    rtp = {
+      -- disable some rtp plugins
+      disabled_plugins = {
+        "gzip",
+        -- "matchit",
+        -- "matchparen",
+        -- "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
+})
+</file>
+
+<file path="lua/config/options.lua">
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+
+-- Configuración de línea y visualización
+vim.opt.wrap = true          -- Ajuste de línea activado
+vim.opt.linebreak = true     -- No cortar palabras a la mitad al ajustar
+vim.opt.colorcolumn = "0"    -- Desactivar la columna de color
+vim.opt.numberwidth = 2      -- Un poco más de margen para los números (recomendado: 2-4)
+
+-- Columnas de estado
+vim.opt.signcolumn = "yes"   -- Mantener siempre la columna de signos (Git/LSP)
+vim.opt.foldcolumn = "0"     -- Mantener la columna de pliegues oculta
+
+-- Transparencia en ventanas flotantes y menús
+vim.opt.winblend = 0         -- Transparencia en ventanas flotantes
+vim.opt.pumblend = 0         -- Transparencia en el menú de autocompletado (popup menu)
+</file>
+
+<file path="lua/plugins/colorscheme.lua">
+--return {
+--  "wuelnerdotexe/vim-enfocado",
+--  lazy = false, -- make sure we load this during startup if it is your main colorscheme
+--  priority = 1000, -- make sure to load this before all the other start plugins
+--  transparent = true,
+--  config = function()
+--    -- load the colorscheme here
+--    vim.cmd([[colorscheme enfocado]])
+--  end,
+--}
+
+-- return {
+--   "catppuccin/nvim",
+--   name = "catppuccin",
+--   priority = 1000,
+--   lazy = false,
+--   opts = {
+--     flavour = "latte",
+--     transparent_background = true, -- disables setting the background color.
+--   },
+-- }
+
+return {
+  {
+    "craftzdog/solarized-osaka.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      transparent = true,
+    },
+    config = function(_, opts)
+      require("solarized-osaka").setup(opts)
+      vim.cmd("colorscheme solarized-osaka")
+    end,
+  },
+}
+
+--return {
+--  "folke/tokyonight.nvim",
+--  opts = {
+--    transparent = true,
+--    styles = {
+--      sidebars = "transparent",
+--      floats = "transparent",
+--    },
+--  },
+--}
+</file>
+
+<file path="lua/plugins/gitsigns.lua">
+return {
+  "lewis6991/gitsigns.nvim",
+  opts = {
+    signcolumn = true, -- Ahora sí verás las marcas de Git a la izquierda
+    numhl = true,
+    max_file_length = 10000,
+  },
+}
+</file>
+
+<file path="lua/plugins/lsp.lua">
+return {
+  "neovim/nvim-lspconfig",
+  opts = {
+    servers = {
+      -- LazyVim ya configura pyright y jdtls gracias a tus extras.
+      -- Solo añadimos configuraciones personalizadas si es estrictamente necesario.
+      lua_ls = {
+        settings = {
+          Lua = {
+            telemetry = { enable = false },
+            workspace = { checkThirdParty = false },
+          },
+        },
+      },
+    },
+  },
+}
+</file>
+
+<file path="lua/plugins/lualine.lua">
+return {
+  "nvim-lualine/lualine.nvim",
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  opts = {
+    options = {
+      globalstatus = true,
+      theme = "auto", -- Sincronización automática con Solarized Osaka
+    },
+    sections = {
+      lualine_c = { { "filename", file_status = true, path = 1 } },
+      lualine_x = {
+        {
+          function() return require("lazy.status").updates() end,
+          cond = function() return require("lazy.status").has_updates() end,
+          color = { fg = "#ff9e64" },
+        },
+      },
+    },
+    winbar = {
+      lualine_c = {
+        {
+          function()
+            local folder = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":t")
+            local file = vim.fn.expand("%:t")
+            return folder .. "/" .. file
+          end,
+        },
+      },
+    },
+    inactive_winbar = {
+      lualine_c = {
+        {
+          function()
+            local folder = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":t")
+            local file = vim.fn.expand("%:t")
+            return folder .. "/" .. file
+          end,
+          color = { fg = "#808080" },
+        },
+      },
+    },
+  },
+}
+</file>
+
+<file path="lua/plugins/mason.lua">
+return {
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "stylua",
+        "shellcheck",
+        "shfmt",
+        -- "flake8" eliminado por redundante con Ruff
+      },
+    },
+  },
+}
+</file>
+
+<file path="lua/plugins/notify.lua">
+---@diagnostic disable: missing-fields
+return {
+  "rcarriga/nvim-notify",
+  event = "VeryLazy",
+  opts = {
+    timeout = 3000,
+    -- El código hexadecimal de 8 posiciones (8 ceros) fuerza la transparencia total
+    background_colour = "#00000000",
+    render = "compact",
+    stages = "static", -- Recomendado para evitar lag en terminales sin composición
+  },
+}
+</file>
+
+<file path="lua/plugins/oil.lua">
+return {
+  'stevearc/oil.nvim',
+  opts = {
+  view_options = {
+      show_hidden = true, -- Habilita la visualización de archivos ocultos
+    },
+  },
+  -- Optional dependencies
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+}
+</file>
+
+<file path="lua/plugins/telescope.lua">
+return {
+  "nvim-telescope/telescope.nvim",
+  event = 'VeryLazy',
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope-file-browser.nvim",
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      build = 'make'
+    }
+  },
+  opts = {
+    extensions = {
+      fzf = {
+        fuzzy = true,                   -- false will only do exact matching
+        override_generic_sorter = true, -- override the generic sorter
+        override_file_sorter = true,    -- override the file sorter
+        case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+      },
+    }
+  },
+  config = function(_, opts)
+    require('telescope').setup(opts)
+    require('telescope').load_extension('fzf')
+    require('telescope').load_extension('file_browser')
+  end,
+  keys = {
+    -- Búsqueda personalizada en tu carpeta de plugins
+    {
+      "<leader>rp",
+      function()
+        require("telescope.builtin").find_files({
+          prompt_title = "Plugins",
+          cwd = "~/.config/nvim/lua/plugins",
+          attach_mappings = function(_, map)
+            local actions = require("telescope.actions")
+            local action_state = require("telescope.actions.state")
+            map("i", "<c-y>", function(prompt_bufnr)
+              local new_plugin = action_state.get_current_line()
+              actions.close(prompt_bufnr)
+              vim.cmd(string.format("edit ~/.config/nvim/lua/plugins/%s.lua", new_plugin))
+            end)
+            return true
+          end
+        })
+      end,
+      desc = "Buscar archivos de Plugins"
+    },
+    -- Atajo para tu File Browser personalizado
+    {
+      "<leader>bb",
+      function()
+        require("telescope").extensions.file_browser.file_browser({ path = "%:h:p", select_buffer = true })
+      end,
+      desc = "Telescope file browser"
+    }
+  },
+}
+</file>
+
+<file path="lua/plugins/treesitter.lua">
+return {
+  "nvim-treesitter/nvim-treesitter",
+  opts = function(_, opts)
+    -- Añadimos solo los lenguajes específicos que no vienen preinstalados
+    -- por los extras de LazyVim que tienes en lazyvim.json
+    vim.list_extend(opts.ensure_installed, {
+      "csv",
+      "java",
+      "latex",
+      "sql",
+      "xml",
+      "regex",
+    })
+  end,
+}
+</file>
+
+<file path=".gitignore">
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+</file>
+
+<file path=".neoconf.json">
+{
+  "neodev": {
+    "library": {
+      "enabled": true,
+      "plugins": true
+    }
+  },
+  "neoconf": {
+    "plugins": {
+      "lua_ls": {
+        "enabled": true
+      }
+    }
+  }
+}
+</file>
+
+<file path="init.lua">
+-- bootstrap lazy.nvim, LazyVim and your plugins
+if vim.g.vscode then
+    -- VS Code Neovim: Solo cargar opciones y keymaps básicos
+    -- No cargamos 'config.lazy' a menos que quieras plugins específicos
+    vim.opt.clipboard = "unnamedplus"
+    -- Aquí puedes poner tus propios atajos de teclado para VS Code
+    -- Desactivar animaciones que dan lag en VS Code
+    vim.g.neovide_animations = false
+else
+    -- Neovim normal (Terminal)
+    require("config.lazy")
+end
+</file>
+
+<file path="lazy-lock.json">
+{
+  "LazyVim": { "branch": "main", "commit": "83d90f339defdb109a6ede333865a66ffc7ef6aa" },
+  "LuaSnip": { "branch": "master", "commit": "a62e1083a3cfe8b6b206e7d3d33a51091df25357" },
+  "SchemaStore.nvim": { "branch": "main", "commit": "250aed7415ddd6cb3ea321490c7b35094ed9148d" },
+  "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
+  "bufferline.nvim": { "branch": "main", "commit": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3" },
+  "catppuccin": { "branch": "main", "commit": "426dbebe06b5c69fd846ceb17b42e12f890aedf1" },
+  "conform.nvim": { "branch": "master", "commit": "086a40dc7ed8242c03be9f47fbcee68699cc2395" },
+  "flash.nvim": { "branch": "main", "commit": "fcea7ff883235d9024dc41e638f164a450c14ca2" },
+  "friendly-snippets": { "branch": "main", "commit": "6cd7280adead7f586db6fccbd15d2cac7e2188b9" },
+  "fzf-lua": { "branch": "main", "commit": "834246377489f9a1e6d4df570a7874a48c644b56" },
+  "gitsigns.nvim": { "branch": "main", "commit": "8d82c240f190fc33723d48c308ccc1ed8baad69d" },
+  "grug-far.nvim": { "branch": "main", "commit": "21604255d0e8f9968322f61f2b6c09e5efe1285a" },
+  "gruvbox.nvim": { "branch": "main", "commit": "154eb5ff5b96d0641307113fa385eaf0d36d9796" },
+  "lazy.nvim": { "branch": "main", "commit": "85c7ff3711b730b4030d03144f6db6375044ae82" },
+  "lazydev.nvim": { "branch": "main", "commit": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d" },
+  "lualine.nvim": { "branch": "master", "commit": "a905eeebc4e63fdc48b5135d3bf8aea5618fb21c" },
+  "markdown-preview.nvim": { "branch": "master", "commit": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee" },
+  "mason-lspconfig.nvim": { "branch": "main", "commit": "0a3b42c3e503df87aef6d6513e13148381495c3a" },
+  "mason-nvim-dap.nvim": { "branch": "main", "commit": "9a10e096703966335bd5c46c8c875d5b0690dade" },
+  "mason.nvim": { "branch": "main", "commit": "b03fb0f20bc1d43daf558cda981a2be22e73ac42" },
+  "mini.ai": { "branch": "main", "commit": "43eb2074843950a3a25aae56a5f41362ec043bfa" },
+  "mini.icons": { "branch": "main", "commit": "bac6317300e205335df425296570d84322730067" },
+  "mini.pairs": { "branch": "main", "commit": "42387c7fe68fc0b6e95eaf37f1bb76e7bffaa0d9" },
+  "mini.surround": { "branch": "main", "commit": "2715e04bea3ec9244f15b421dc5b18c0fe326210" },
+  "neo-tree.nvim": { "branch": "main", "commit": "4d0828d95adaf4250c1373d2cd9318d3509712b7" },
+  "noice.nvim": { "branch": "main", "commit": "7bfd942445fb63089b59f97ca487d605e715f155" },
+  "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
+  "nvim-dap": { "branch": "master", "commit": "45a69eba683a2c448dd9ecfc4de89511f0646b5f" },
+  "nvim-dap-python": { "branch": "master", "commit": "1808458eba2b18f178f990e01376941a42c7f93b" },
+  "nvim-dap-ui": { "branch": "master", "commit": "1a66cabaa4a4da0be107d5eda6d57242f0fe7e49" },
+  "nvim-dap-virtual-text": { "branch": "master", "commit": "fbdb48c2ed45f4a8293d0d483f7730d24467ccb6" },
+  "nvim-jdtls": { "branch": "master", "commit": "77ccaeb422f8c81b647605da5ddb4a7f725cda90" },
+  "nvim-lint": { "branch": "master", "commit": "eab58b48eb11d7745c11c505e0f3057165902461" },
+  "nvim-lspconfig": { "branch": "master", "commit": "4b7fbaa239c5db6b36f424a4521ca9f1a401be33" },
+  "nvim-nio": { "branch": "master", "commit": "21f5324bfac14e22ba26553caf69ec76ae8a7662" },
+  "nvim-notify": { "branch": "master", "commit": "8701bece920b38ea289b457f902e2ad184131a5d" },
+  "nvim-treesitter": { "branch": "main", "commit": "4916d6592ede8c07973490d9322f187e07dfefac" },
+  "nvim-treesitter-textobjects": { "branch": "main", "commit": "851e865342e5a4cb1ae23d31caf6e991e1c99f1e" },
+  "nvim-ts-autotag": { "branch": "main", "commit": "88c1453db4ba7dd24131086fe51fdf74e587d275" },
+  "nvim-web-devicons": { "branch": "master", "commit": "c72328a5494b4502947a022fe69c0c47e53b6aa6" },
+  "oil.nvim": { "branch": "master", "commit": "0fcc83805ad11cf714a949c98c605ed717e0b83e" },
+  "one-small-step-for-vimkind": { "branch": "main", "commit": "1af6ffb9b5229a856e8090fa2f690e0931a5aace" },
+  "persistence.nvim": { "branch": "main", "commit": "b20b2a7887bd39c1a356980b45e03250f3dce49c" },
+  "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
+  "render-markdown.nvim": { "branch": "main", "commit": "0fd43fb4b1f073931c4b481f5f3b7cea3749e190" },
+  "snacks.nvim": { "branch": "main", "commit": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e" },
+  "solarized-osaka.nvim": { "branch": "main", "commit": "f0c2f0ba0bd56108d53c9bfae4bb28ff6c67bbdb" },
+  "telescope-file-browser.nvim": { "branch": "master", "commit": "3610dc7dc91f06aa98b11dca5cc30dfa98626b7e" },
+  "telescope-fzf-native.nvim": { "branch": "main", "commit": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c" },
+  "telescope.nvim": { "branch": "master", "commit": "028d9a0695a0cc4cfa893889f8c408ed7ccc8adc" },
+  "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
+  "tokyonight.nvim": { "branch": "main", "commit": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6" },
+  "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
+  "ts-comments.nvim": { "branch": "main", "commit": "123a9fb12e7229342f807ec9e6de478b1102b041" },
+  "undotree": { "branch": "master", "commit": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d" },
+  "venv-selector.nvim": { "branch": "main", "commit": "bcb2f58533c59b01565285eba49693f00bc460f5" },
+  "vim-dadbod": { "branch": "master", "commit": "6d1d41da4873a445c5605f2005ad2c68c99d8770" },
+  "vim-dadbod-completion": { "branch": "master", "commit": "a8dac0b3cf6132c80dc9b18bef36d4cf7a9e1fe6" },
+  "vim-dadbod-ui": { "branch": "master", "commit": "07e92e22114cc5b1ba4938d99897d85b58e20475" },
+  "vim-fugitive": { "branch": "master", "commit": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0" },
+  "vimtex": { "branch": "master", "commit": "0f42a5130432d4af2e6fd21fb93a76915ff1f090" },
+  "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
+}
+</file>
+
+<file path="lazyvim.json">
+{
+  "extras": [
+    "lazyvim.plugins.extras.coding.luasnip",
+    "lazyvim.plugins.extras.coding.mini-surround",
+    "lazyvim.plugins.extras.dap.core",
+    "lazyvim.plugins.extras.dap.nlua",
+    "lazyvim.plugins.extras.lang.git",
+    "lazyvim.plugins.extras.lang.java",
+    "lazyvim.plugins.extras.lang.json",
+    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.lang.python",
+    "lazyvim.plugins.extras.lang.sql",
+    "lazyvim.plugins.extras.lang.tex",
+    "lazyvim.plugins.extras.lang.typescript"
+  ],
+  "install_version": 7,
+  "news": {
+    "NEWS.md": "11866"
+  },
+  "version": 8
+}
+</file>
+
+<file path="LICENSE">
+Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+</file>
+
+<file path="README.md">
+# 💤 LazyVim
+
+A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
+Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+</file>
+
+<file path="stylua.toml">
+indent_type = "Spaces"
+indent_width = 2
+column_width = 120
+</file>
+
+</files>
