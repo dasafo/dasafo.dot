@@ -25,6 +25,19 @@ Estos atajos están optimizados para tus proyectos Spring y Hibernate con Maven.
 
 ---
 
+### 👁️ Goto Preview (Ventanas Flotantes LSP)
+
+| Atajo | Acción | Descripción |
+| :--- | :--- | :--- |
+| `gpd` | **Preview Definition** | Abre la definición en ventana flotante sin saltar del archivo actual. |
+| `gpt` | **Preview Type Definition** | Previsualiza la definición de tipo. |
+| `gpi` | **Preview Implementation** | Previsualiza la implementación. |
+| `gpD` | **Preview Declaration** | Previsualiza la declaración. |
+| `gpr` | **Preview References** | Abre las referencias en Telescope dentro de una ventana flotante. |
+| `gP` | **Cerrar todas** | Cierra todas las ventanas de preview abiertas. |
+
+---
+
 ### 🔍 Búsqueda y Navegación (Telescope)
 
 | Atajo | Acción | Descripción |
