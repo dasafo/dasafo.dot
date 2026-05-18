@@ -1,5 +1,18 @@
 Esta es la lista completa y actualizada de los atajos de teclado configurados en tu Neovim, divididos por categorías para que sea más fácil de consultar.
 
+### 🏠 Dashboard (Pantalla de inicio)
+
+| Atajo | Acción | Descripción |
+| :--- | :--- | :--- |
+| `u` | **Lazy update** | Actualiza los plugins de Neovim desde el dashboard. |
+| `f` | **Find Files** | Abre Telescope para buscar archivos. |
+| `g` | **Live Grep** | Busca texto en todos los archivos del proyecto. |
+| `r` | **Recent files** | Muestra archivos abiertos recientemente. |
+
+También podés abrir el dashboard cuando quieras con `:Dashboard`.
+
+---
+
 ### 🛠️ Atajos Generales y de Sistema
 
 | Atajo | Acción | Descripción |
