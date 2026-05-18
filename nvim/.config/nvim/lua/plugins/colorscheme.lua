@@ -1,24 +1,5 @@
---return {
---  "wuelnerdotexe/vim-enfocado",
---  lazy = false, -- make sure we load this during startup if it is your main colorscheme
---  priority = 1000, -- make sure to load this before all the other start plugins
---  transparent = true,
---  config = function()
---    -- load the colorscheme here
---    vim.cmd([[colorscheme enfocado]])
---  end,
---}
-
--- return {
---   "catppuccin/nvim",
---   name = "catppuccin",
---   priority = 1000,
---   lazy = false,
---   opts = {
---     flavour = "latte",
---     transparent_background = true, -- disables setting the background color.
---   },
--- }
+-- Colorscheme: Solarized Osaka
+-- Si querés cambiar, comentá este bloque y descomentá otro abajo
 
 return {
   {
@@ -35,13 +16,20 @@ return {
   },
 }
 
---return {
---  "folke/tokyonight.nvim",
---  opts = {
---    transparent = true,
---    styles = {
---      sidebars = "transparent",
---      floats = "transparent",
---    },
---  },
---}
+-- Alternativas (descomentar para usar):
+-- return {
+--   {
+--     "catppuccin/nvim",
+--     name = "catppuccin",
+--     priority = 1000,
+--     lazy = false,
+--     opts = { flavour = "latte", transparent_background = true },
+--   },
+-- }
+--
+-- return {
+--   {
+--     "folke/tokyonight.nvim",
+--     opts = { transparent = true, styles = { sidebars = "transparent", floats = "transparent" } },
+--   },
+-- }

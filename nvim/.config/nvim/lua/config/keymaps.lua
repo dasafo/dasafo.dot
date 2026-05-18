@@ -44,7 +44,7 @@ vim.keymap.set("n", "<leader>mu", function()
 end, { desc = "Tomcat: Undeploy" })
 
 -- Abrir el archivo JSP o HTML actual en el navegador (ya usa jobstart, es asíncrono)
-vim.keymap.set("n", "<leader>r", function()
+vim.keymap.set("n", "<leader>tb", function()
   local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
   local file_name = vim.fn.expand("%:t")
   local parent_dir = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":t")

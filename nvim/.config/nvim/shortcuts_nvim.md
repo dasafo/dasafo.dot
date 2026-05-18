@@ -6,7 +6,7 @@ Esta es la lista completa y actualizada de los atajos de teclado configurados en
 | :--- | :--- | :--- |
 | `<leader>w` | **Guardar archivo** | Ejecuta `:w` para guardar el buffer actual. |
 | `-` | **Abrir Oil.nvim** | Abre el explorador de archivos Oil en el directorio padre del archivo actual. |
-| `<Esc>` | **Salir de Terminal** | (En modo Terminal) Permite volver al modo normal dentro de una terminal abierta. |
+| `ññ` | **Salir de Terminal** | En modo Terminal, vuelve al modo Normal. Lo mapeamos a `ññ` porque `<Esc>` solo va a Terminal-Normal, no a Normal. |
 
 ---
 
@@ -21,7 +21,7 @@ Estos atajos están optimizados para tus proyectos Spring y Hibernate con Maven.
 | `<leader>md` | **Tomcat Deploy** | Despliega la aplicación en Tomcat mediante Maven. |
 | `<leader>mr` | **Tomcat Redeploy** | Realiza un re-despliegue en caliente en Tomcat. |
 | `<leader>mu` | **Tomcat Undeploy** | Retira la aplicación desplegada de Tomcat. |
-| `<leader>r` | **Abrir en Navegador** | Detecta automáticamente la URL del proyecto y abre el JSP/HTML en el navegador. |
+| `<leader>tb` | **Abrir en Navegador (Tomcat)** | Detecta automáticamente la URL del proyecto y abre el JSP/HTML en el navegador. |
 
 ---
 

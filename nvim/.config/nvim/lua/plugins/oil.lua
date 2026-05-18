@@ -1,10 +1,9 @@
 return {
-  'stevearc/oil.nvim',
+  "stevearc/oil.nvim",
   opts = {
-  view_options = {
-      show_hidden = true, -- Habilita la visualización de archivos ocultos
+    view_options = {
+      show_hidden = true,
     },
   },
-  -- Optional dependencies
   dependencies = { "nvim-tree/nvim-web-devicons" },
 }
