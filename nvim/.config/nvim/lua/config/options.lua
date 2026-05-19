@@ -14,3 +14,6 @@ vim.opt.foldcolumn = "0"     -- Mantener la columna de pliegues oculta
 -- Transparencia en ventanas flotantes y menús
 vim.opt.winblend = 0         -- Transparencia en ventanas flotantes
 vim.opt.pumblend = 0         -- Transparencia en el menú de autocompletado (popup menu)
+
+-- Restaurar el espacio de comandos abajo para evitar "franjas negras" vacías
+vim.opt.cmdheight = 1
