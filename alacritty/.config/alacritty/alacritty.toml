@@ -1,0 +1,58 @@
+# CONFIGURACIÓN FINAL (Basada en image_857c44.png e image_857c81.png)
+
+[env]
+# Mantenemos esto para que zsh y tmux funcionen correctamente
+TERM = "xterm-256color"
+
+[window]
+# Tamaño inicial según image_857c44.png
+dimensions = { columns = 80, lines = 24 }
+padding = { x = 0, y = 0 }
+dynamic_title = true
+# Opacidad al 1.0 ya que la transparencia está desactivada en la imagen
+opacity = 0.95 
+decorations = "none"
+
+[font]
+# Cambio a la fuente y tamaño de image_857c44.png
+normal = { family = "UbuntuMono Nerd Font Mono", style = "Regular" }
+size = 16.0
+
+[colors.primary]
+# Colores personalizados de la interfaz de image_857c81.png
+background = '#1c1c1c'
+foreground = '#ff00ff' # El rosa intenso seleccionado como default
+
+[colors.selection]
+text = '#1c1c1c'
+background = '#ff00ff'
+
+# Paleta Solarized solicitada en image_857c81.png
+[colors.normal]
+black   = '#073642'
+red     = '#dc322f'
+green   = '#859900'
+yellow  = '#b58900'
+blue    = '#268bd2'
+magenta = '#d33682'
+cyan    = '#2aa198'
+white   = '#eee8d5'
+
+[colors.bright]
+black   = '#002b36'
+red     = '#cb4b16'
+green   = '#586e75'
+yellow  = '#657b83'
+blue    = '#839496'
+magenta = '#6c71c4'
+cyan    = '#93a1a1'
+white   = '#fdf6e3'
+
+[cursor]
+# Ajuste de forma y parpadeo según image_857c44.png
+style = { shape = "Block", blinking = "Never" }
+
+[bell]
+# Terminal bell desactivada según image_857c44.png
+animation = "Linear"
+duration = 0
