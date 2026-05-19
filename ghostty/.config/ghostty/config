@@ -1,0 +1,25 @@
+# Configuración de Ghostty para dasafo.dot
+# Renderizado veloz, Wayland/X11 nativo, divisiones y ligaduras
+
+font-family = "UbuntuMono Nerd Font Mono"
+font-size = 13
+
+# Paleta de colores (Kanagawa o Solarized)
+theme = solarized-dark
+
+# Transparencia
+background-opacity = 0.95
+
+# Ocultar la barra superior (decoraciones de ventana)
+window-decorations = false
+
+# Cursor
+cursor-style = block
+cursor-blink = false
+
+# Deshabilitar confirmaciones al cerrar ventanas con procesos
+confirm-close-surface = false
+
+# Padding interno
+window-padding-x = 4
+window-padding-y = 4
