@@ -5,17 +5,17 @@ font-family = "UbuntuMono Nerd Font Mono"
 font-size = 13
 
 # Paleta de colores (Kanagawa o Solarized)
-theme = solarized-dark
+theme = "Solarized Osaka Night"
 
 # Transparencia
 background-opacity = 0.95
 
 # Ocultar la barra superior (decoraciones de ventana)
-window-decorations = false
+window-decoration = false
 
 # Cursor
 cursor-style = block
-cursor-blink = false
+cursor-style-blink = false
 
 # Deshabilitar confirmaciones al cerrar ventanas con procesos
 confirm-close-surface = false
