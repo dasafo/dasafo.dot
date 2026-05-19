@@ -2,7 +2,7 @@
 # Renderizado veloz, Wayland/X11 nativo, divisiones y ligaduras
 
 font-family = "UbuntuMono Nerd Font Mono"
-font-size = 13
+font-size = 16
 
 # Paleta de colores (Kanagawa o Solarized)
 theme = "Solarized Osaka Night"
@@ -11,7 +11,7 @@ theme = "Solarized Osaka Night"
 background-opacity = 0.95
 
 # Ocultar la barra superior (decoraciones de ventana)
-window-decoration = false
+window-decoration = false 
 
 # Cursor
 cursor-style = block
@@ -21,5 +21,7 @@ cursor-style-blink = false
 confirm-close-surface = false
 
 # Padding interno
-window-padding-x = 4
-window-padding-y = 4
+window-padding-x = 0
+window-padding-y = 0
+window-padding-color = extend
+window-padding-balance = true
