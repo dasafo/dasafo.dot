@@ -5,6 +5,7 @@ return {
       "stylua",
       "shellcheck",
       "shfmt",
+      "google-java-format",
     },
   },
 }
