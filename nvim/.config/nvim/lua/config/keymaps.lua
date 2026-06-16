@@ -17,9 +17,27 @@ vim.keymap.set("t", "ññ", [[<C-\><C-n>]], { noremap = true, silent = true, des
 -- COMPILACIÓN Y EJECUCIÓN JAVA / JSP / MAVEN (ASÍNCRONO)
 --------------------------------------------------------------------------------
 
--- Función para ejecutar comandos Maven en una terminal sin bloquear Neovim
+-- Buscar el directorio del pom.xml desde el archivo actual hacia arriba
+local function find_pom_dir()
+  local dir = vim.fn.expand("%:p:h")
+  while dir ~= "/" do
+    local pom = dir .. "/pom.xml"
+    if vim.fn.filereadable(pom) == 1 then
+      return dir
+    end
+    dir = vim.fn.fnamemodify(dir, ":h")
+  end
+  return nil
+end
+
+-- Función para ejecutar comandos Maven desde el directorio correcto
 local function run_maven(cmd)
-  vim.cmd("vsplit | terminal " .. cmd)
+  local pom_dir = find_pom_dir()
+  if not pom_dir then
+    vim.notify("No se encontró pom.xml", vim.log.levels.ERROR)
+    return
+  end
+  vim.cmd("vsplit | terminal cd \"" .. pom_dir .. "\" && " .. cmd)
 end
 
 -- Compilación universal con Maven

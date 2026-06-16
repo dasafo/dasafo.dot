@@ -1,0 +1,60 @@
+{
+	"subagents": {
+		"agentOverrides": {
+			"sdd-init": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"sdd-explore": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"sdd-proposal": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"sdd-spec": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"sdd-design": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"sdd-tasks": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"sdd-apply": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"sdd-verify": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"sdd-archive": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"context-builder": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"delegate": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"oracle": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"planner": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"researcher": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"reviewer": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"scout": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"sdd-onboard": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			},
+			"worker": {
+				"model": "opencode-custom/deepseek-v4-flash-free"
+			}
+		}
+	}
+}

@@ -1,4 +1,12 @@
 # ==============================================================================
+# 0. AUTO-START TMUX (DEBE IR ANTES DE P10K)
+# ==============================================================================
+# Lanzamos tmux antes de que p10k secuestre la terminal
+if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && command -v tmux &> /dev/null; then
+  exec tmux
+fi
+
+# ==============================================================================
 # 1. OPTIMIZACIÓN DE ARRANQUE (Powerlevel10k Instant Prompt)
 # ==============================================================================
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -17,14 +25,8 @@ else
 fi
 
 # ==============================================================================
-# 1.2 AUTO-START TMUX (Añadido)
+# (El bloque de Tmux fue movido al principio del archivo)
 # ==============================================================================
-# - [[ $- == *i* ]]: Asegura que la sesión es interactiva.
-# - [[ -z "$TMUX" ]]: Evita el bucle infinito comprobando que no estás ya dentro de tmux.
-# - exec tmux: Reemplaza el proceso de zsh por tmux (si cierras tmux, se cierra la pestaña).
-if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && command -v tmux &> /dev/null; then
-  exec tmux
-fi
 
 # Evitar duplicados en el PATH
 typeset -U path
@@ -131,3 +133,7 @@ fi
 # 9. CARGA DEL PROMPT (Debe ir al final)
 # ==============================================================================
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/david/.local/bin:$PATH"
