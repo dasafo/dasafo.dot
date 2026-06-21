@@ -107,8 +107,14 @@ alias restartvenv='deactivate 2>/dev/null; source .venv/bin/activate'
 alias ls='ls --color=auto'
 
 # Maven / Spring Boot aliases
-alias mvnw='./mvnw'
-alias spring-dev='./mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"'
+mvnw() {
+  if [ -f "./mvnw" ]; then
+    ./mvnw "$@"
+  else
+    command mvn "$@"
+  fi
+}
+alias spring-dev='mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"'
 
 # Aliases de búsqueda y previsualización interactiva
 alias fzfbat='fzf --preview="batcat --color=always {}"'
