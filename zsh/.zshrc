@@ -107,6 +107,7 @@ alias restartvenv='deactivate 2>/dev/null; source .venv/bin/activate'
 alias ls='ls --color=auto'
 
 # Maven / Spring Boot aliases
+unalias mvnw 2>/dev/null
 mvnw() {
   if [ -f "./mvnw" ]; then
     ./mvnw "$@"
