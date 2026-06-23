@@ -6,6 +6,7 @@ return {
       "shellcheck",
       "shfmt",
       "google-java-format",
+      "lemminx",
     },
   },
 }
