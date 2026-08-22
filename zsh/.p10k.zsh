@@ -1700,11 +1700,9 @@
   # really need it.
   typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
 
-# ... líneas anteriores de tu archivo ...
-
-  # ============================================================================
-  # KANAGAWA THEME COLOR OVERRIDES
-  # ============================================================================
+    # ============================================================================
+    # KANAGAWA THEME COLOR OVERRIDES
+    # ============================================================================
   typeset -g COLOR_BACKGROUND="#1f1f28"    # Paleta oscura Kanagawa
   typeset -g COLOR_FOREGROUND="#dcd7ba"    # Texto principal
 
@@ -1728,8 +1726,9 @@
   typeset -g COLOR_BRIGHT_CYAN="#7aa89f"
   typeset -g COLOR_BRIGHT_WHITE="#dcd7ba"
 
-  # Asignación de colores a los elementos de Powerlevel10k
-  typeset -g POWERLEVEL9K_BACKGROUND=$COLOR_BACKGROUND
+  # Assign colors to Powerlevel10k elements
+  # NOTE: POWERLEVEL9K_BACKGROUND is intentionally NOT reassigned here so the
+  # transparent background configured above (ghostty/tmux transparency) stays intact
   typeset -g POWERLEVEL9K_FOREGROUND=$COLOR_FOREGROUND
 
   # Directorio actual

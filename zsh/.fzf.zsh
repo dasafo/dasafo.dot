@@ -1,7 +1,7 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == */home/david/.fzf/bin* ]]; then
-  PATH="${PATH:+${PATH}:}/home/david/.fzf/bin"
+if [[ ! "$PATH" == */"$HOME/.fzf/bin"* ]]; then
+  PATH="${PATH:+${PATH}:}$HOME/.fzf/bin"
 fi
 
 # Carga de completados y atajos nativos

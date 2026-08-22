@@ -30,9 +30,6 @@ fi
 # (El bloque de Tmux fue movido al principio del archivo)
 # ==============================================================================
 
-# Evitar duplicados en el PATH
-typeset -U path
-
 
 # ==============================================================================
 # 2. ENTORNO Y PATHS BASE (Estáticos, sin llamadas a shell)
@@ -63,8 +60,8 @@ export INFOPATH="/home/linuxbrew/.linuxbrew/share/info${INFOPATH+:$INFOPATH}"
 # ==============================================================================
 conda() {
   unset -f conda
-  if [ -f "/home/david/anaconda3/etc/profile.d/conda.sh" ]; then
-    . "/home/david/anaconda3/etc/profile.d/conda.sh"
+  if [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
+    . "$HOME/anaconda3/etc/profile.d/conda.sh"
     conda $@
   fi
 }
@@ -95,15 +92,14 @@ npm() { lazy_nvm; npm $@ }
 # 7. EXTRAS & CONFIGURACIONES DE TERCEROS
 # ==============================================================================
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f "/home/david/google-cloud-sdk/path.zsh.inc" ] && source "/home/david/google-cloud-sdk/path.zsh.inc"
-[ -f "/home/david/google-cloud-sdk/completion.zsh.inc" ] && source "/home/david/google-cloud-sdk/completion.zsh.inc"
+[ -f "$HOME/google-cloud-sdk/path.zsh.inc" ] && source "$HOME/google-cloud-sdk/path.zsh.inc"
+[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ] && source "$HOME/google-cloud-sdk/completion.zsh.inc"
 
 # Engram Cloud Configuration (credenciales en ~/.config/engram/env, fuera del repo)
 [ -f "$HOME/.config/engram/env" ] && source "$HOME/.config/engram/env"
 
 # Aliases
 alias restartvenv='deactivate 2>/dev/null; source .venv/bin/activate'
-alias ls='ls --color=auto'
 
 # Maven / Spring Boot aliases
 unalias mvnw 2>/dev/null
@@ -116,9 +112,14 @@ mvnw() {
 }
 alias spring-dev='mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"'
 
-# Aliases de búsqueda y previsualización interactiva
-alias fzfbat='fzf --preview="batcat --color=always {}"'
-alias fzfnvim='nvim $(fzf --preview="batcat --color=always {}")'
+    # Aliases de búsqueda y previsualización interactiva (detecta batcat o bat)
+    if command -v batcat &> /dev/null; then
+      alias fzfbat='fzf --preview="batcat --color=always {}"'
+      alias fzfnvim='nvim $(fzf --preview="batcat --color=always {}")'
+    elif command -v bat &> /dev/null; then
+      alias fzfbat='fzf --preview="bat --color=always {}"'
+      alias fzfnvim='nvim $(fzf --preview="bat --color=always {}")'
+    fi
 
 # Reemplazo de ls por eza en formato Tabla tipo Nushell
 if command -v eza &> /dev/null; then
@@ -143,7 +144,3 @@ fi
 # 9. CARGA DEL PROMPT (Debe ir al final)
 # ==============================================================================
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-
-# Added by Antigravity CLI installer
-export PATH="/home/david/.local/bin:$PATH"
