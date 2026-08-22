@@ -3,6 +3,8 @@
 
 -- Configuración de línea y visualización
 vim.opt.wrap = true          -- Ajuste de línea activado
+vim.opt.relativenumber = false -- Número de fila absoluto siempre
+vim.opt.number = true        -- Mostrar números de fila
 vim.opt.linebreak = true     -- No cortar palabras a la mitad al ajustar
 vim.opt.colorcolumn = "0"    -- Desactivar la columna de color
 vim.opt.numberwidth = 2      -- Un poco más de margen para los números (recomendado: 2-4)
