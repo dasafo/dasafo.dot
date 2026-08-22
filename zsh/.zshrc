@@ -98,11 +98,8 @@ npm() { lazy_nvm; npm $@ }
 [ -f "/home/david/google-cloud-sdk/path.zsh.inc" ] && source "/home/david/google-cloud-sdk/path.zsh.inc"
 [ -f "/home/david/google-cloud-sdk/completion.zsh.inc" ] && source "/home/david/google-cloud-sdk/completion.zsh.inc"
 
-# Engram Cloud Configuration
-export ENGRAM_CLOUD_TOKEN="Freedom85"
-export ENGRAM_CLOUD_ADMIN="elPutoAmo"
-export ENGRAM_CLOUD_AUTOSYNC="1"
-export ENGRAM_CLOUD_SERVER="https://engram.dasafodata.com"
+# Engram Cloud Configuration (credenciales en ~/.config/engram/env, fuera del repo)
+[ -f "$HOME/.config/engram/env" ] && source "$HOME/.config/engram/env"
 
 # Aliases
 alias restartvenv='deactivate 2>/dev/null; source .venv/bin/activate'

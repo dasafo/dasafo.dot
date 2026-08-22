@@ -3,3 +3,9 @@
 AGENTS.md
 SOUL.md
 
+# Paquetes descargados que no deben commitearse
+*.deb
+
+# Credenciales locales de Engram (mover a ~/.config/engram/env)
+engram-env
+
