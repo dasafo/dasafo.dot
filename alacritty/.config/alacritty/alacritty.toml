@@ -9,7 +9,7 @@ TERM = "xterm-256color"
 dimensions = { columns = 80, lines = 24 }
 padding = { x = 0, y = 0 }
 dynamic_title = true
-# Opacidad al 1.0 ya que la transparencia está desactivada en la imagen
+# Opacidad 0.95 (ligera transparencia, coherente con ghostty)
 opacity = 0.95
 decorations = "none"
 

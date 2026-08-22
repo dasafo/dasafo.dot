@@ -20,6 +20,11 @@ accent = "#6FA0AF"
 # Match tmux prefix muscle memory
 prefix = "ctrl+a"
 
+# Pane navigation (tmux-style)
+cycle_pane_next = "prefix+o"
+cycle_pane_previous = "prefix+semicolon"
+split_horizontal = "prefix+d"
+
 # Navigate agents in sidebar
 previous_agent = "prefix+alt+k"
 next_agent = "prefix+alt+j"
