@@ -26,5 +26,5 @@ window-padding-y = 0
 window-padding-color = extend
 window-padding-balance = true
 
-# Lanza tmux creando una nueva sesión independiente para cada ventana
-command = tmux
+# Lanza herdr (agent multiplexer) al abrir Ghostty
+command = herdr

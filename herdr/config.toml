@@ -1,0 +1,28 @@
+# herdr configuration managed by dasafo.dot
+# Copied to ~/.config/herdr/config.toml (not symlinked — Herdr needs writable config)
+# To update after editing this file: cp ~/dasafo.dot/herdr/config.toml ~/.config/herdr/config.toml
+
+[theme]
+name = "one-dark"
+
+[theme.custom]
+panel_bg = "#06080f"
+accent = "#6FA0AF"
+green = "#B7CC85"
+blue = "#6FA0AF"
+red = "#CB7C94"
+yellow = "#DEBA87"
+
+[ui]
+accent = "#6FA0AF"
+
+[keys]
+# Match tmux prefix muscle memory
+prefix = "ctrl+a"
+
+# Navigate agents in sidebar
+previous_agent = "prefix+alt+k"
+next_agent = "prefix+alt+j"
+
+# Jump to agent N (1..9)
+focus_agent = "prefix+ctrl+1..9"

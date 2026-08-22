@@ -1,10 +1,12 @@
 # ==============================================================================
-# 0. AUTO-START TMUX (DEBE IR ANTES DE P10K)
+# 0. AUTO-START TMUX — DESHABILITADO (Herdr lo reemplaza)
 # ==============================================================================
-# Lanzamos tmux antes de que p10k secuestre la terminal
-if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && command -v tmux &> /dev/null; then
-  exec tmux
-fi
+# Para volver a tmux, descomenta el bloque de abajo y cambia
+# Ghostty config: command = tmux
+#
+# if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && command -v tmux &> /dev/null; then
+#   exec tmux
+# fi
 
 # ==============================================================================
 # 1. OPTIMIZACIÓN DE ARRANQUE (Powerlevel10k Instant Prompt)
@@ -35,7 +37,7 @@ typeset -U path
 # ==============================================================================
 # 2. ENTORNO Y PATHS BASE (Estáticos, sin llamadas a shell)
 # ==============================================================================
-export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$HOME/.npm-global/bin:/opt/docker-desktop/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:/usr/local/bin:/opt/docker-desktop/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 export PATH="$JAVA_HOME/bin:$PATH"
 export GOPATH=$HOME/go
