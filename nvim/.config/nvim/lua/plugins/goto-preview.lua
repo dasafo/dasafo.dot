@@ -1,7 +1,16 @@
 return {
   "rmagatti/goto-preview",
   dependencies = { "rmagatti/logger.nvim" },
-  event = "BufEnter",
+  -- Se carga al pulsar gp* en lugar de en cada BufEnter,
+  -- evitando cargar telescope al arrancar nvim
+  keys = {
+{ "n", "gpd", desc = "Preview definition" },
+{ "n", "gpt", desc = "Preview type definition" },
+{ "n", "gpi", desc = "Preview implementation" },
+{ "n", "gpD", desc = "Preview declaration" },
+{ "n", "gpr", desc = "Preview references" },
+{ "n", "gP", desc = "Close all preview windows" },
+  },
   config = function()
     require("goto-preview").setup({
       width = 120,

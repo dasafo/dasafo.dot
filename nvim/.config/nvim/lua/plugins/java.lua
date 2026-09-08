@@ -20,6 +20,9 @@ return {
     dependencies = {
       "mfussenegger/nvim-jdtls",
     },
+    -- Carga solo al abrir un archivo Java para no arrastrar
+    -- mason-registry + jdtls al arranque de nvim
+    ft = "java",
     config = function()
       -- Esto engancha el LSP de Spring a tu proyecto
       require("spring_boot").setup()
